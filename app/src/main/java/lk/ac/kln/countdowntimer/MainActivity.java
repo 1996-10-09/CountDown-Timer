@@ -3,6 +3,7 @@ package lk.ac.kln.countdowntimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -44,22 +45,43 @@ private static final String CURRENT_COUNTER = "counter";
                   if(counter==0){
                       counter =99;
                   }
-                    counter--;
+                  if(running) {
+                      counter--;
+                  }
                   handler.postDelayed(this,1000 );
 
             }
         });
 
     }
+
+        protected void startCounter(View view){
+        running = true;
+        }
+    protected void stopCounter(View view){
+        running = false;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        running = true;
+    }
     @Override
     public void onStart(){
         super.onStart();
+        running = true;
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        wasrunning = true;
+        running = false;
 
 
     }
